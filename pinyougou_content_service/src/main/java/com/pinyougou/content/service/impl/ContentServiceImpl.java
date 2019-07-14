@@ -96,7 +96,7 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public PageResult findPage(TbContent content, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+        PageHelper.startPage(  pageNum, pageSize);
 
         TbContentExample example = new TbContentExample();
         Criteria criteria = example.createCriteria();

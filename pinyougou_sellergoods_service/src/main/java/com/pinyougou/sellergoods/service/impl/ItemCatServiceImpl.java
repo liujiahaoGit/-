@@ -18,6 +18,8 @@ import com.pinyougou.pojo.TbItemCat;
 import com.pinyougou.pojo.TbItemCatExample;
 import com.pinyougou.pojo.TbItemCatExample.Criteria;
 import com.pinyougou.sellergoods.service.ItemCatService;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -46,6 +48,9 @@ public class ItemCatServiceImpl implements ItemCatService {
     /**
      * 按分页查询
      */
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @Override
     public PageResult findPage(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
@@ -123,6 +128,12 @@ public class ItemCatServiceImpl implements ItemCatService {
         Criteria criteria = example.createCriteria();
         criteria.andParentIdEqualTo(parentId);
         List<TbItemCat> list = itemCatMapper.selectByExample(example);
+
+        List<TbItemCat> tbItemCats = findAll();
+        for (TbItemCat itemCat : tbItemCats) {
+            redisTemplate.boundHashOps("itemCat").put(itemCat.getName(),itemCat.getTypeId());
+        }
+        System.out.println("更新缓存,商品分类列表");
         return list;
     }
 

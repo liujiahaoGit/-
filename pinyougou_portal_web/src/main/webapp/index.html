@@ -18,7 +18,7 @@
 	<script type="text/javascript" src="js/controller/contentController.js"> </script>
 </head>
 
-<body ng-app="pinyougou" ng-controller="contentController" ng-init="findByCategoryId(1)">
+<body ng-app="com.pinyougou" ng-controller="contentController" ng-init="findByCategoryId(1)">
 	<!-- 头部栏位 -->
 	<!--页面顶部-->
 <div id="nav-bottom">
@@ -70,8 +70,8 @@
 							<form action="" class="sui-form form-inline">
 								<!--searchAutoComplete-->
 								<div class="input-append">
-									<input type="text" id="autocomplete" type="text" class="input-error input-xxlarge" />
-									<button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
+									<input type="text" id="autocomplete" type="text" ng-model="keywords" class="input-error input-xxlarge" />
+									<button class="sui-btn btn-xlarge btn-danger" ng-click="search()" type="button">搜索</button>
 								</div>
 							</form>
 						</div>

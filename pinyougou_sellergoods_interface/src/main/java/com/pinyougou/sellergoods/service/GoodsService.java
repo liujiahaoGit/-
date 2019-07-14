@@ -5,6 +5,7 @@ import java.util.List;
 import com.pinyougou.entity.Goods;
 import com.pinyougou.entity.PageResult;
 import com.pinyougou.pojo.TbGoods;
+import com.pinyougou.pojo.TbItem;
 
 /**
  * 服务层接口
@@ -69,6 +70,7 @@ public interface GoodsService {
 
     /**
      * 修改状态码
+     *
      * @param ids
      * @param status
      */
@@ -77,9 +79,18 @@ public interface GoodsService {
 
     /**
      * 是否上下架
+     *
      * @param ids
      * @param status
      */
     void updateMarkeTable(Long[] ids, String status);
+
+    /**
+     * 根据SPU查询SKU
+     * @param ids
+     * @param status
+     * @return
+     */
+    public List<TbItem> findItemListByGoodsIdandStatus(Long[] ids, String status);
 
 }
