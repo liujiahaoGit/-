@@ -25,8 +25,11 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 
         Map<String, Object> map = new HashMap<>();
         String keywords = (String) searchMap.get("keywords");
-        String s = keywords.replaceAll(" ", "");
-        searchMap.put("keywords",s);
+        if (keywords.contains(" ")){
+            String s = keywords.replaceAll(" ", "");
+            searchMap.put("keywords",s);
+        }
+
         //按关键字查询产品列表
         map.putAll(searchList(searchMap));
 
