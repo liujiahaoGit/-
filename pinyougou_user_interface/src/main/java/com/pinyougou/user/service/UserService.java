@@ -2,6 +2,7 @@ package com.pinyougou.user.service;
 import java.util.List;
 
 import com.pinyougou.entity.PageResult;
+import com.pinyougou.pojo.TbAddress;
 import com.pinyougou.pojo.TbUser;
 
 
@@ -74,4 +75,6 @@ public interface UserService {
 	 * @return
 	 */
 	public boolean checkSmsCode(String phone,String code);
+
+
 }

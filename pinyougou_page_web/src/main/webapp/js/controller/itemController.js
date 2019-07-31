@@ -1,5 +1,5 @@
  //控制层 
-app.controller('itemController' ,function($scope,$controller){
+app.controller('itemController' ,function($scope,$controller,$http){
 	
 	
 	//数量操作
@@ -57,10 +57,19 @@ app.controller('itemController' ,function($scope,$controller){
             }
         }
         $scope.sku = {id: 0, title: "------", price: 0}
-    }
+    };
 	//加入购物车
 	 $scope.addToCart=function () {
-        alert($scope.sku.id)
+        $http.get("http://localhost:9107/cart/addGoodsToCartList.do?itemId="+$scope.sku.id+"&num="+$scope.num,{'withCredentials':true}).success(
+            function (response) {
+                if (response.success){
+                    location.href="http://localhost:9107/cart.html"
+                } else {
+                    alert(response.message)
+                }
+            }
+        );
+      /*  alert($scope.sku.id)*/
     }
 
     

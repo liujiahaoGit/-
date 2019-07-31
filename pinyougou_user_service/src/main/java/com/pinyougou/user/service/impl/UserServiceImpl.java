@@ -7,6 +7,9 @@ import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import com.pinyougou.entity.PageResult;
+import com.pinyougou.mapper.TbAddressMapper;
+import com.pinyougou.pojo.TbAddress;
+import com.pinyougou.pojo.TbAddressExample;
 import com.pinyougou.user.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -174,10 +177,10 @@ public class UserServiceImpl implements UserService {
     public void createSmsCode(final String phone) {
         //将短信验证码存入redis缓存中
         //  final String systemCode = (long) (Math.random() * 1000000) + "";
-       // redisTemplate.boundHashOps("sysCode").put(phone, systemCode);
+        // redisTemplate.boundHashOps("sysCode").put(phone, systemCode);
 
         final String systemCode = (RandomUtils.nextLong(100000, 1000000)) + "";
-        redisTemplate.boundValueOps("sysCode:"+phone).set(systemCode);
+        redisTemplate.boundValueOps("sysCode:" + phone).set(systemCode);
         System.out.println("生成的验证码为:" + systemCode);
         //发送到activeMq
         jmsTemplate.send(queueTextDestination, new MessageCreator() {
@@ -199,7 +202,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkSmsCode(String phone, String code) {
-      //  String sysCode = (String) redisTemplate.boundHashOps("sysCode").get(phone);
+        //  String sysCode = (String) redisTemplate.boundHashOps("sysCode").get(phone);
         String sysCode = (String) redisTemplate.boundValueOps("sysCode:" + phone).get();
         redisTemplate.delete("sysCode:" + phone);
         if (sysCode == null || code == null || "".equals(code) || !code.equals(sysCode)) {
@@ -210,4 +213,6 @@ public class UserServiceImpl implements UserService {
 
 
     }
+
+
 }

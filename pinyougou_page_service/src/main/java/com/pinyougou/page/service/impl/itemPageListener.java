@@ -23,6 +23,7 @@ public class itemPageListener implements MessageListener {
             System.out.println("生产静态页"+b);
         } catch (JMSException e) {
             e.printStackTrace();
+
         }
     }
 }
