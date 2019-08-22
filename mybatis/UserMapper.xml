@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+    <mapper namespace="userMapper">
+    <!-- 查找全部user对象-->
+    <select id="findAll" resultType="user">
+        select * from user
+    </select>
+
+    <!--修改user数据-->
+    <update id="update" parameterType="user">
+        update user set username=#{username} where id=#{id}
+    </update>
+
+    <!--删除user数据-->
+    <delete id="delete" parameterType="int">
+        delete from user where id=#{id}
+    </delete>
+
+    <!--增加数据-->
+    <insert id="insert" parameterType="user">
+        insert into user (id,username,password) value (#{id},#{username},#{password})
+    </insert>
+
+    <!--查询单个user-->
+    <select id="findOne" resultType="user" parameterType="int">
+        select * from user where id=#{id}
+    </select>
+    </mapper>
+
+
